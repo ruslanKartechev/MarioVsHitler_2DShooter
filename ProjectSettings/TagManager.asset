@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Weapon
+  - Ground
+  - Bullet
+  - Enemy
+  - Furniture
+  - Gold
+  - Rifle
+  - Pistol_1
+  - AutomaticRifle
+  - MachineGun
+  - BulletPack
+  - BulletPackPistol_1
+  - BulletPackRifle
+  - BulletPackautomaticRifle
+  - Pistol_2
+  - EnemySoldier
+  - EnemyOfficer
+  - EnemyTank
+  - BulletPackMachineGun
+  - EnemyManager
+  - Grenade_1
+  - Bounds
+  - BulletPackPistol_2
+  - SpawnPoint
+  - InGameUI
+  - GrenadePoint
+  - EnemyGhost
+  - EnemyGhostBlue
+  - EventSystem
+  - EnemyHitler
+  - PlayerFirePoint
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - Grenade
+  - Weapon
+  - Furniture
+  - Enemies
+  - Bullet
+  - Gold
+  - EnemyProjectiles
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: BackSprites
+    uniqueID: 3200669721
+    locked: 0
+  - name: BackObjects
+    uniqueID: 922484757
+    locked: 0
+  - name: TilesGround
+    uniqueID: 4058867915
+    locked: 0
+  - name: TilePlatforms
+    uniqueID: 51258171
+    locked: 0
+  - name: MidGround_1
+    uniqueID: 3827926769
+    locked: 0
+  - name: MidGround_2
+    uniqueID: 2808830773
+    locked: 0
+  - name: MidGround_3
+    uniqueID: 338919863
+    locked: 0
+  - name: Enemies
+    uniqueID: 2638203895
+    locked: 0
+  - name: Player
+    uniqueID: 2886259611
+    locked: 0
+  - name: ForeGround
+    uniqueID: 207308155
+    locked: 0
+  - name: UI
+    uniqueID: 1954056005
+    locked: 0
+  - name: Effects
+    uniqueID: 1397696919
+    locked: 0

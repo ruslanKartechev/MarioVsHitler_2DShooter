@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6529152260407152697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6529152260407152703}
+  - component: {fileID: 6529152260407152702}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6529152260407152703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529152260407152697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.9941225, y: -2.2408552, z: -1.8805923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6529152260407152702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6529152260407152697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91f2d636bc9bce4187ac451b828e444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTypes:
+  - typeName: Soldier
+    gameTag: EnemySoldier
+    maxHealth: 25
+    currentHealth: 0
+    fireRate: 2
+    bulletPF: {fileID: 8639394012510060219, guid: 6c2456feeb2766d4c99e441aa8986b68, type: 3}
+    isDead: 0
+    moveSpeed: 3
+    jumpHeight: 6
+    damage: 5
+    PreFab: {fileID: 1108921037154867172, guid: 93800ded0700bdc49b8acc38958a0063, type: 3}
+    detectionDistance: 15
+    followDistance: 12
+    retreatDistance: 3
+    flyingHeight: 0
+    stopDistance: 8
+    bleedingPF: {fileID: 5461417733367234627, guid: 31c81846dac35c945881fe9e095c5d14, type: 3}
+    shootingPF: {fileID: 2987701580851313999, guid: c9933859c5ea9474cb9edac07706099b, type: 3}
+    enemyAnimator: {fileID: 0}
+    projectileExplosionEffect: {fileID: 0}
+    firingSoundName: soldiersShoot
+  - typeName: Officer
+    gameTag: EnemyOfficer
+    maxHealth: 40
+    currentHealth: 0
+    fireRate: 3
+    bulletPF: {fileID: 8639394012510060219, guid: 6c2456feeb2766d4c99e441aa8986b68, type: 3}
+    isDead: 0
+    moveSpeed: 1
+    jumpHeight: 6
+    damage: 8
+    PreFab: {fileID: 2161553394066978848, guid: 3cc0763833e2617488ca488d2363a0a1, type: 3}
+    detectionDistance: 15
+    followDistance: 12
+    retreatDistance: 3
+    flyingHeight: 0
+    stopDistance: 7
+    bleedingPF: {fileID: 5461417733367234627, guid: 31c81846dac35c945881fe9e095c5d14, type: 3}
+    shootingPF: {fileID: 2987701580851313999, guid: c9933859c5ea9474cb9edac07706099b, type: 3}
+    enemyAnimator: {fileID: 0}
+    projectileExplosionEffect: {fileID: 0}
+    firingSoundName: soldiersShoot
+  - typeName: Tank
+    gameTag: EnemyTank
+    maxHealth: 300
+    currentHealth: 0
+    fireRate: 2
+    bulletPF: {fileID: 614810550208447864, guid: 57f8da7ee0c7a504887d59ebca16861c, type: 3}
+    isDead: 0
+    moveSpeed: 1
+    jumpHeight: 0
+    damage: 50
+    PreFab: {fileID: 7925516773851120032, guid: 51eb32a6e96f54e499b25dd9e27cf573, type: 3}
+    detectionDistance: 15
+    followDistance: 12
+    retreatDistance: 1
+    flyingHeight: 0
+    stopDistance: 10
+    bleedingPF: {fileID: 5461417733367234627, guid: 31c81846dac35c945881fe9e095c5d14, type: 3}
+    shootingPF: {fileID: 908385608776667999, guid: eac5039d0f3d4f644b39172dde192054, type: 3}
+    enemyAnimator: {fileID: 0}
+    projectileExplosionEffect: {fileID: 4145338065373229322, guid: 9f95f1e9d5bfe354f945fb5302291604, type: 3}
+    firingSoundName: TankFire
+  - typeName: GhostRed
+    gameTag: EnemyGhost
+    maxHealth: 100
+    currentHealth: 0
+    fireRate: 2
+    bulletPF: {fileID: 8522526880544408726, guid: 5d41b1bfad44e634f877b271a32a18b0, type: 3}
+    isDead: 0
+    moveSpeed: 2
+    jumpHeight: 0
+    damage: 20
+    PreFab: {fileID: 8522526880544408726, guid: 5d41b1bfad44e634f877b271a32a18b0, type: 3}
+    detectionDistance: 15
+    followDistance: 12
+    retreatDistance: 3
+    flyingHeight: 0
+    stopDistance: 10
+    bleedingPF: {fileID: 5461417733367234627, guid: 31c81846dac35c945881fe9e095c5d14, type: 3}
+    shootingPF: {fileID: 2036157954036976087, guid: 476d335fd7dea0c4ebb27c7e6d00c4dc, type: 3}
+    enemyAnimator: {fileID: 0}
+    projectileExplosionEffect: {fileID: 0}
+    firingSoundName: ghostsShoot
+  - typeName: GhostBlue
+    gameTag: EnemyGhostBlue
+    maxHealth: 150
+    currentHealth: 0
+    fireRate: 1
+    bulletPF: {fileID: 2947932732963063651, guid: b98ceb3500689d24089cd4e280cca598, type: 3}
+    isDead: 0
+    moveSpeed: 2
+    jumpHeight: 0
+    damage: 30
+    PreFab: {fileID: 5821606031568866535, guid: 19cf182334b8da449bdf02a364b56aa7, type: 3}
+    detectionDistance: 15
+    followDistance: 12
+    retreatDistance: 2
+    flyingHeight: 0
+    stopDistance: 6
+    bleedingPF: {fileID: 5461417733367234627, guid: 31c81846dac35c945881fe9e095c5d14, type: 3}
+    shootingPF: {fileID: 2036157954036976087, guid: 476d335fd7dea0c4ebb27c7e6d00c4dc, type: 3}
+    enemyAnimator: {fileID: 0}
+    projectileExplosionEffect: {fileID: 0}
+    firingSoundName: ghostsShoot
+  _spawnedEnemies: []
+  Player: {fileID: 0}
