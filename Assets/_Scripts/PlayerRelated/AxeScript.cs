@@ -7,8 +7,6 @@ using UnityEngine;
 public class AxeScript : MonoBehaviour
 {
     public int damage = 50;
-    
-  
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

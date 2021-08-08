@@ -6,9 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerMove : MonoBehaviour
 {
-    public Animator animator;    
     Rigidbody2D rbPlayer;
-   // private float InputX;
     private int jumpCount = 0;
     public int jumpLimit = 2;
     private float speed = 0f;
@@ -17,7 +15,7 @@ public class PlayerMove : MonoBehaviour
     public int maxSpeedUps = 1;
     public float runSpeedmodifier = 1.5f;
     private int jumpHeight = 10;
-
+    private float moveInput;
 
     public static bool FacingRight = true;
     public static PlayerMove S;
@@ -29,10 +27,8 @@ public class PlayerMove : MonoBehaviour
             rbPlayer = GetComponent<Rigidbody2D>();
 
         S = this;
-    }
-    private void Start()
-    {
         FacingRight = true;
+        SetDefaultSpeed();
     }
 
     public void Stop()
@@ -40,9 +36,9 @@ public class PlayerMove : MonoBehaviour
         speed = 0f;
     }
 
-    public void SetDefaultSpeed(int mod)
+    public void SetDefaultSpeed()
     {
-        speed = defaultSpeed*mod* runSpeedmodifier;
+        speed = defaultSpeed*runSpeedmodifier;
     }
 
     public bool SetRunningSpeed()
@@ -56,39 +52,57 @@ public class PlayerMove : MonoBehaviour
         {
             return false;
         }
-        
     }
 
-    public void moveLeftRight()
+    public void moveLeftRight(float input)
     {
-   
-            if (speed> 0 && !FacingRight)
-            {
-                Flip();
-                FacingRight = true;
-            }
-        
-       
-            if (speed<0 && FacingRight)
-            {
-                Flip();
-                FacingRight = false;
-            }
-           rbPlayer.velocity = new Vector2(speed, rbPlayer.velocity.y);
+        moveInput = input;
+        if (input > 0 && !FacingRight)
+        {
+            FacingRight = true;
+            Flip();
+        }
 
-        
+        if (input < 0 && FacingRight)
+        {
+            Flip();
+            FacingRight = false;
+        }
+            
     }
 
     public void MoveDown()
     {
-        rbPlayer.velocity  = new Vector2(rbPlayer.velocity.x, -jumpHeight);
-        
+        rbPlayer.velocity  = new Vector2(rbPlayer.velocity.x, -jumpHeight);   
+    }
+    public void Jump()
+    {
+        if (jumpCount < 2)
+        {
+            rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, jumpHeight);
+            jumpCount += 1;
+        }
+
     }
 
-
-
-
-
+    void Flip()
+    {
+        rbPlayer.transform.Rotate(0, 180, 0);
+    }
+    private void FixedUpdate()
+    {
+        if(moveInput == 0f)
+        {
+            rbPlayer.velocity = new Vector2(0, rbPlayer.velocity.y);
+        }
+        else if(moveInput > 0)
+        {
+            rbPlayer.velocity = new Vector2(speed, rbPlayer.velocity.y);
+        } else if(moveInput < 0)
+        {
+            rbPlayer.velocity = new Vector2(-speed, rbPlayer.velocity.y);
+        }
+    }
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -103,19 +117,4 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-
-    public void Jump() 
-    {
-        if(jumpCount < 2)
-        {
-            rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, jumpHeight);
-            jumpCount += 1;
-        }
-      
-    }
-
-    void Flip()
-    {
-        rbPlayer.transform.Rotate(0,180,0);
-    }
 }

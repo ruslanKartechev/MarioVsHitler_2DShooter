@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "2249dc61-916a-43f5-8a31-736f43a9d31e",
                     "expectedControlType": "Button",
@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "PauseMenu",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "2dda3129-1bbf-4328-8d48-8869f8eb27a4",
                     "expectedControlType": "Button",
@@ -46,7 +46,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "RunSpeed",
+                    "name": "Run",
                     "type": "Button",
                     "id": "df2e57c2-431f-41e7-a575-bdff1849b623",
                     "expectedControlType": "Button",
@@ -94,7 +94,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyBoardMouse",
-                    "action": "Shoot",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -138,7 +138,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyBoardMouse",
-                    "action": "PauseMenu",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -149,7 +149,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyBoardMouse",
-                    "action": "RunSpeed",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

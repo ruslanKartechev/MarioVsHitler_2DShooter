@@ -12,6 +12,7 @@ public class ArmorScript : MonoBehaviour
     public float bouncingSpeed = 0.5f;
     private float phase = 0;
     private Vector3 unitY = new Vector3(0, 1, 0);
+    private float armorAmount = 100f;
     void Start()
     {
         if (GetComponent<CircleCollider2D>() != null)
@@ -50,11 +51,11 @@ public class ArmorScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.tag.Contains("Player"))
+        IArmorable temp = collision.collider.gameObject.GetComponent<IArmorable>();
+        if (temp != null)
         {
-            PlayerControl.TakeArmor();
+            temp.EquipArmor(armorAmount);
             Destroy(gameObject);
-            SoundManager.PlaySound("ammoPickUp", ref AudioSources.pickups);
         }
     }
 

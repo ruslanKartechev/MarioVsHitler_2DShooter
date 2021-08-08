@@ -10,7 +10,7 @@ public class StatDisplay : MonoBehaviour
     {
         slider = GetComponent<Slider>();
     }
-    public void setHealth(float value)
+    public void SetParameter(float value)
     {
         if(slider != null)
         {

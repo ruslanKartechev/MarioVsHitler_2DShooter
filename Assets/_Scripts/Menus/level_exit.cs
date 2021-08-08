@@ -66,7 +66,6 @@ public class level_exit : MonoBehaviour
             LevelFinishText.GetComponent<TextMeshProUGUI>().text = SceneManager.GetActiveScene().name + " Completed!!!";
             EndGameMenu.SetActive(true);
             Time.timeScale = 0;
-            PlayerControl.DisableInGameInput();
         }
 
     }
@@ -78,8 +77,6 @@ public class level_exit : MonoBehaviour
       
         SceneManager.LoadScene(activeScene.buildIndex + 1);
         Time.timeScale = 1f;
-        PlayerControl.EnableInGameInput();
-        PlayerControl.NumberOfLifes = 4;
         
     }
     public void QuitGame() {

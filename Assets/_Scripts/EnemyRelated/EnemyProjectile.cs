@@ -51,23 +51,19 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
- 
-        if (collision.collider.gameObject.tag.Contains("Enemy") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Furniture") || collision.collider.gameObject.tag == "Ground" || collision.collider.gameObject.tag.Contains("Bound")  || collision.collider.gameObject.tag.Contains("Player"))
-        {
-            if(ExplosionEffect != null)
-            {
-                Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
-            }
-            if (collision.collider.gameObject.tag.Contains("Player"))
-            {
-                PlayerControl.TakeDamage(damage);
-            }
-            Destroy(gameObject);
-        }
+        
         if (collision.collider.gameObject.tag.Contains("Enemy") || collision.collider.gameObject.tag.Contains("BulletPack"))
         {
             Physics2D.IgnoreCollision(collision.collider, gameObject.GetComponent<Collider2D>());
-
+        } else
+        {
+            IDamageable temp = collision.collider.gameObject.GetComponent<IDamageable>();
+            if (temp != null)
+            {
+                temp.TakeDamage(damage);
+                if (ExplosionEffect != null) Instantiate(ExplosionEffect, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
         }
     }
 

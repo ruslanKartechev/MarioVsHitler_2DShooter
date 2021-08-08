@@ -56,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
         if(healthDispl != null)
         {
             float h = (float)classHandle.currentHealth / (float)classHandle.maxHealth;
-            healthDispl.setHealth(h);
+            healthDispl.SetParameter(h);
         }
 
         if (classHandle.currentHealth <= 0 && classHandle.isDead == false)
@@ -124,7 +124,6 @@ public class EnemyBehaviour : MonoBehaviour
     public void Die()
     {
         classHandle.isDead = true;
-        PlayerControl.AddKill() ;
         animator.SetBool("Dead", true);
         Destroy(gameObject, 0.5f);
     }

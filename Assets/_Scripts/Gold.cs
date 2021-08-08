@@ -49,13 +49,17 @@ public class Gold : MonoBehaviour
         }
             
     }
-
+    private float GoldAmount()
+    {
+        float amount = Random.Range(lower,upper);
+        return amount;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.tag.Contains("Player"))
+        ITakeGold  temp= collision.collider.GetComponent<ITakeGold>();
+        if(temp != null)
         {
-            score = UnityEngine.Random.Range(lower,upper);
-            PlayerControl.TakeGold(score);
+            temp.TakeGold(GoldAmount());
             Destroy(gameObject);
         }
     }

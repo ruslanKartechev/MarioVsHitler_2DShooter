@@ -2,29 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IProjectile
 {
-    private Vector3 flyDirection;
-    public float bulletSpeed = 50f;
+
     private Rigidbody2D rbBullet;
     public GameObject bulletTrail;
-    public int  damage;
-    // Start is called before the first frame update
+    private float damage;
+    private Vector2 direction = new Vector2();
+    private float Velocity;
+    private PlayerShoot owner;
 
-
-
-    void Start()
+    void Awake()
     {
         rbBullet = GetComponent<Rigidbody2D>();
-        rbBullet.velocity = flyDirection.normalized * bulletSpeed;
         if(bulletTrail != null)
         {
             GameObject trail = Instantiate(bulletTrail,transform.position,Quaternion.identity, gameObject.transform);
-            
         }
     }
 
-    // Update is called once per frame
     void Update()
     {   
         if(transform.position.x > 400 || transform.position.x < -200)
@@ -36,14 +32,25 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void GetDir(Vector3 dir)
+    public void StartProjectile()
     {
-        flyDirection = dir;
+        rbBullet.velocity = direction * Velocity;
     }
-
-    public void GetDam(int dam)
+    public void SetDirection(Vector2 dir)
+    {
+        direction = dir;
+    }
+    public void SetVelocity(float vel)
+    {
+        Velocity = vel;
+    }
+    public void SetDamage(float dam)
     {
         damage = dam;
+    }
+    public void SetOwner(PlayerShoot shootingHandle)
+    {
+        owner = shootingHandle;
     }
 
 
@@ -62,7 +69,7 @@ public class Bullet : MonoBehaviour
         {
        
             EnemyBehaviour ex = collision.collider.gameObject.GetComponent<EnemyBehaviour>();
-            ex.TakeDamage(damage);
+            ex.TakeDamage((int)damage);
             Destroy(gameObject);
 
         } 

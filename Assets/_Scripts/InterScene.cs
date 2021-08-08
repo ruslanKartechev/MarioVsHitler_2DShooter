@@ -7,9 +7,8 @@ public class InterScene : MonoBehaviour
     public Transform SpawnPoint;
     public GameObject player;
     public GameObject inGameUi;
-    public WeaponInfo weaponInf;
     public bool wasSpawned;
-    public Scene loadedScene;
+    private Scene loadedScene;
     // Start is called before the first frame update
     void Awake()
     {

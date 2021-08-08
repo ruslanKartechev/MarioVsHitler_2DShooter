@@ -31,23 +31,14 @@ public class DeathMenu : MonoBehaviour
         {
             Player = FindObjectOfType<PlayerControl>().gameObject;
         }
-        PlayerControl.DisableInGameInput();
+
     }
 
 
-
-    public void Update()
-    {
-        if(gameObject.activeInHierarchy == true)
-        {
-            PlayerControl.DisableInGameInput(); ;
-        }
-           
-    }
 
     public void Respawn()
     {
-        if (PlayerControl.NumberOfLifes > 0)
+        if (1 > 0) //////////////
         {
             SpawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
             if (SpawnPoint != null)
@@ -61,7 +52,7 @@ public class DeathMenu : MonoBehaviour
 
             Time.timeScale = 1f;
             deathMenu.SetActive(false);
-            PlayerControl.Respawn();
+
         }
     }
 
@@ -71,7 +62,7 @@ public class DeathMenu : MonoBehaviour
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         deathMenu.SetActive(false);
-        PlayerControl.Restart();
+
         
        
     }
@@ -91,7 +82,6 @@ public class DeathMenu : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
         }
-        PlayerControl.EnableInGameInput();
 
     }
 }

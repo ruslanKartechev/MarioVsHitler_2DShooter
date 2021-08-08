@@ -24,8 +24,6 @@ public class PauseMenu : MonoBehaviour
     {       
             pauseMenuUI.SetActive(false);
             inGameUi.SetActive(true);
-       
-        PlayerControl.EnableInGameInput();
     }
 
 
@@ -36,7 +34,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         inGameUi.SetActive(false);
         pauseMenuUI.SetActive(true);       
-        PlayerControl.DisableInGameInput(); 
+
     }
 
     public void Resume()
@@ -45,7 +43,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         inGameUi.SetActive(true);
         Time.timeScale = 1f;
-        PlayerControl.EnableInGameInput();
+
        
     }
 
@@ -90,20 +88,10 @@ public class PauseMenu : MonoBehaviour
     }
 
 
-
-
-    public void changeResolution()
-    {
-
-    }
-
-
-
     public void MainMenu()
     {
-            Destroy( FindObjectOfType<DontDestroyOnLoad>().gameObject);    
-            SceneManager.LoadScene("MainMenu");
-
+        Destroy( FindObjectOfType<DontDestroyOnLoad>().gameObject);    
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()

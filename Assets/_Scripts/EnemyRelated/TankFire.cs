@@ -36,8 +36,8 @@ public class TankFire : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-      
-
+        IDamageable temp = collision.collider.gameObject.GetComponent<IDamageable>();
+        if (temp != null) temp.TakeDamage(damage);
 
         if (collision.collider.gameObject.tag.Contains("Enemy") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Furniture") || collision.collider.gameObject.tag == "Ground" || collision.collider.gameObject.tag.Contains("Player") )
         {
@@ -46,11 +46,6 @@ public class TankFire : MonoBehaviour
         if (collision.collider.gameObject.tag.Contains("Enemy") || collision.collider.gameObject.tag.Contains("BulletPack"))
         {
             Physics2D.IgnoreCollision(collision.collider, gameObject.GetComponent<Collider2D>());
-
-        }
-        if (collision.collider.gameObject.tag == "Player")
-        {
-            PlayerControl.TakeDamage(damage);
         }
     }
 

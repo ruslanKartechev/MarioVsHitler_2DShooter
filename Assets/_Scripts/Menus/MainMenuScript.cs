@@ -28,30 +28,27 @@ public class MainMenuScript : MonoBehaviour
         {
             soundSlider = GameObject.Find("EffectsSlider").GetComponent<Slider>();
         }
+        if (resolutionDropDown != null) SetResolutionDropDown();
     }
 
-
-    private void Start()
+    private void SetResolutionDropDown()
     {
-        if(resolutionDropDown != null)
+        int currenResIndex = 0;
+        resolutions = Screen.resolutions;
+        resolutionDropDown.ClearOptions();
+        List<string> options = new List<string>();
+        for (int i = 0; i < resolutions.Length; i++)
         {
-            int currenResIndex = 0;
-            resolutions = Screen.resolutions;
-            resolutionDropDown.ClearOptions();
-            List<string> options = new List<string>();
-            for(int i =0; i<resolutions.Length; i++)
+            string option = resolutions[i].width + "x" + resolutions[i].height;
+            options.Add(option);
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
-                string option = resolutions[i].width + "x" + resolutions[i].height;
-                options.Add(option);
-                if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-                {
-                    currenResIndex = i;
-                }
+                currenResIndex = i;
             }
-            resolutionDropDown.AddOptions(options);
-            resolutionDropDown.value = currenResIndex;
-            resolutionDropDown.RefreshShownValue();
         }
+        resolutionDropDown.AddOptions(options);
+        resolutionDropDown.value = currenResIndex;
+        resolutionDropDown.RefreshShownValue();
     }
 
     public void SetResolution(int index)

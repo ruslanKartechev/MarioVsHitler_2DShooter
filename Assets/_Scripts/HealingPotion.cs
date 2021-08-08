@@ -13,7 +13,7 @@ public class HealingPotion : MonoBehaviour
     public float bouncingSpeed = 0.5f;
     private float phase = 0;
     private Vector3 unitY = new Vector3(0, 1, 0);
-
+    private float healingAmount = 100f;
     void Awake()
     {
         if (GetComponent<CircleCollider2D>() != null)
@@ -51,10 +51,10 @@ public class HealingPotion : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.tag.Contains("Player"))
+        IHealeable temp = collision.collider.gameObject.GetComponent<IHealeable>();
+        if (temp != null)
         {
-            int health = (int)UnityEngine.Random.Range(40, 60);
-            PlayerControl.Heal(health);
+            temp.TakeHeal(healingAmount);
             Destroy(gameObject);
         }
     }
