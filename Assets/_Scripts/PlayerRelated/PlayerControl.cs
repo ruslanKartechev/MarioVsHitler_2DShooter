@@ -15,8 +15,6 @@ public class PlayerControl : MonoBehaviour
 {
     public static bool soundmanagerLoaded;
     [Header("Set in Inspector")]
-    public WeaponInfo weaponInf;
-    public GameObject DeathText;
     public GameObject shootingEffect;
     public TrailRenderer playerTrail;
     public Animator animator;
@@ -25,7 +23,6 @@ public class PlayerControl : MonoBehaviour
     public WeaponControl weaponBeh;
     public PlayerAim playerAimingHandle;
     public PlayerInput playerInput;
-    public PauseMenu pauseBeh;
     public MenuManager menuManagerHandle;
    
     private void Awake()
@@ -40,11 +37,9 @@ public class PlayerControl : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        if(pauseBeh == null) pauseBeh = FindObjectOfType<PauseMenu>().GetComponent<PauseMenu>();
         if (moveBeh == null) moveBeh = GetComponent<PlayerMove>();
         if (shootingBeh == null) shootingBeh = GetComponent<PlayerShoot>();
         if (weaponBeh == null) weaponBeh = GetComponent<WeaponControl>();
-
 
         if (FindObjectOfType<SoundManager>() != null)
         {
@@ -54,14 +49,6 @@ public class PlayerControl : MonoBehaviour
         {
             soundmanagerLoaded = false;
         }
-
-
-        if (DeathText == null) DeathText = FindObjectOfType<DeathMenu>().gameObject;
-
-
-        DeathText.SetActive(false);
-
-
         InitActions();
 
     }

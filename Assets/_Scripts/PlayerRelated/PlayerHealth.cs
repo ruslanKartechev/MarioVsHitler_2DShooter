@@ -8,9 +8,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
     private float currentHealth;
     private PlayerArmor armorHandle;
     private bool isArmored = false;
-    public int maxRespawns = 4;
-    private int respawnsLeft;
     public GameObject damageEffect;
+    public EventsManager eventsHandle;
     public float _currentHealth
 
     {
@@ -19,9 +18,11 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
     // Start is called before the first frame update
     void Awake()
     {
+        if (eventsHandle == null) eventsHandle = FindObjectOfType<EventsManager>();
+        eventsHandle.StartGame.AddListener(() => OnGameStart());
+        eventsHandle.PlayerRespawn.AddListener(() => OnPlayerRespawn());
         armorHandle = GetComponent<PlayerArmor>();
         if(armorHandle != null) { isArmored = true; }
-        respawnsLeft = maxRespawns;
         currentHealth = MaxHealth;
     }
 
@@ -32,6 +33,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
         {
             Die();
         }
+    }
+    public void OnGameStart()
+    {
+        currentHealth = MaxHealth;
+    }
+    public void OnPlayerRespawn()
+    {
+        currentHealth = MaxHealth;
     }
     public void TakeDamage(float damage)
     {
@@ -71,8 +80,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
 
     private void Die()
     {
-        respawnsLeft -= 1;
         currentHealth = 0;
+        eventsHandle.PlayerDie.Invoke();
     }
 
 

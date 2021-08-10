@@ -4,17 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 public class EventsManager : MonoBehaviour
 {
-    public UnityEvent GameStarged;
+    public UnityEvent StartGame;
     public UnityEvent PlayerDie;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public UnityEvent PlayerRespawn;
+    public UnityEvent PlayerSpawn;
 }

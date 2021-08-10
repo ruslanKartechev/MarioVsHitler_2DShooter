@@ -11,6 +11,7 @@ public class MainMenuScript : MonoBehaviour
     public Slider musicSlider;
     public TMP_Dropdown resolutionDropDown;
     private Resolution[] resolutions;
+    public LevelLoadManager levelmanagerHandle;
     // Start is called before the first frame update
 
     public void Awake()
@@ -59,17 +60,9 @@ public class MainMenuScript : MonoBehaviour
 
     public void StartTheGame()
     {
-        if (SceneManager.GetSceneByName("Level_1").isLoaded)
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level_1"));
-        }
-        else
-        {
-            SceneManager.LoadScene("Level_1");
-        }
-        Time.timeScale = 1f;
-        CursorScript.SetGameCursor();
-       
+        levelmanagerHandle.LoadLevel_1();
+
+
     }
     public void ExitGame()
     {

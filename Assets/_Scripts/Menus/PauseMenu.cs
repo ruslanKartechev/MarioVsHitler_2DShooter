@@ -6,47 +6,46 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuUI;
-    public static bool pauseMenuActive = false;
-    public GameObject inGameUi;
+    public GameObject pauseCanvas;
+    public GameObject mainPauseUI;
+    public GameObject optionsMenuUI;
     public float musicvolume = 1f;
     public float effectsvolume = 1f;
     public Slider musicSlider;
     public Slider soundSlider;
-
+    private bool isPaused = false;
+    public bool _isPaused {
+        get { return isPaused; }
+    }
     // Start is called before the first frame update
-    void Awake()
-    {
-        pauseMenuActive = false;
-    }
 
-    void Start()
-    {       
-            pauseMenuUI.SetActive(false);
-            inGameUi.SetActive(true);
-    }
-
-
-    public void SetPause()
-    {
-        Debug.LogWarning("ss");
-        pauseMenuActive = true;
-        Time.timeScale = 0f;
-        inGameUi.SetActive(false);
-        pauseMenuUI.SetActive(true);       
-
-    }
 
     public void Resume()
     {
-        pauseMenuActive = false;
-        pauseMenuUI.SetActive(false);
-        inGameUi.SetActive(true);
-        Time.timeScale = 1f;
-
-       
+        pauseCanvas.SetActive(false);
+        isPaused = false;
     }
 
+    public void SetPause()
+    {
+        pauseCanvas.SetActive(true);
+        if(mainPauseUI.activeInHierarchy == false)
+            mainPauseUI.SetActive(true);
+        if(optionsMenuUI.activeInHierarchy == true)
+            optionsMenuUI.SetActive(false);
+        isPaused = true;
+    }
+
+    public void Options()
+    {
+        mainPauseUI.SetActive(false);
+        optionsMenuUI.SetActive(true);
+    }
+    public void Back()
+    {
+        mainPauseUI.SetActive(true);
+        optionsMenuUI.SetActive(false);
+    }
     // Update is called once per frame
     public void turnoffMusic()
     {
@@ -86,7 +85,6 @@ public class PauseMenu : MonoBehaviour
         }
 
     }
-
 
     public void MainMenu()
     {

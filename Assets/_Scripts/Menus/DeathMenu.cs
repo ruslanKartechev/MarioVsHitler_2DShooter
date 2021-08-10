@@ -2,69 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 
 public class DeathMenu : MonoBehaviour
 {
-    public GameObject deathMenu;
-    public Transform SpawnPoint;
-    public GameObject Player;
-    private static DeathMenu S;
-
+    public TextMeshProUGUI livesLeft;
+    public GameObject deathMenuCanvas;
+    public LevelLoadManager levelmanagereHandle;
+    public MenuManager menuManagerHandle;
+    public PlayerSpawn playerSpawnHandle;
+    public EventsManager eventsHandle;
     private void Awake()
     {
-        if(deathMenu == null)
-        {
-            Debug.LogError("Death Menu object not found");
-        }
-
-
-        if (S == null)
-            S = this;
-
-        if(SpawnPoint == null)
-        {
-            SpawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
-        }
-
-        if (Player == null)
-        {
-            Player = FindObjectOfType<PlayerControl>().gameObject;
-        }
+        deathMenuCanvas.SetActive(false);
 
     }
-
+    public void OnPlayerDie()
+    {
+        deathMenuCanvas.SetActive(true);
+        livesLeft.text = "Lives left: "  + playerSpawnHandle._respawns;
+    }
 
 
     public void Respawn()
     {
-        if (1 > 0) //////////////
+        if(playerSpawnHandle._respawns > 0)
         {
-            SpawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
-            if (SpawnPoint != null)
-            {
-                Player.transform.position = SpawnPoint.position;
-            }
-            else
-            {
-                Player.transform.position = new Vector3(0, 0, 0);
-            }
-
-            Time.timeScale = 1f;
-            deathMenu.SetActive(false);
-
+            eventsHandle.PlayerRespawn.Invoke();
+            deathMenuCanvas.SetActive(false);
         }
+        else
+        {
+            return;
+        }
+        
     }
 
     public void RestartLevel()
     {
-        Time.timeScale = 1f;
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        deathMenu.SetActive(false);
-
-        
-       
+        deathMenuCanvas.SetActive(false);
+        levelmanagereHandle.ReloadLevel();
     }
 
     public void QuitGame()
@@ -73,15 +50,8 @@ public class DeathMenu : MonoBehaviour
     }
     public void MainMenu()
     {
-        Time.timeScale = 1f;
-        if (SceneManager.GetSceneByName("MainMenu").isLoaded)
-        {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("MainMenu"));
-        }
-        else
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
+        deathMenuCanvas.SetActive(false);
+        levelmanagereHandle.LoadMainMenu();
 
     }
 }

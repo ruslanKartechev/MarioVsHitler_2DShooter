@@ -18,6 +18,10 @@ public class PlayerArmor : MonoBehaviour, IArmorable
     public void TakeHit(float damage)
     {
         currentArmor -= damage;
+        if(currentArmor <= 0)
+        {
+            currentArmor = 0;
+        }
     }
     public void EquipArmor(float amount)
     {
