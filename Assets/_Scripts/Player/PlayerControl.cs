@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
-    public static bool soundmanagerLoaded;
+    public static bool soundmanagerLoaded = true;
     [Header("Set in Inspector")]
     public GameObject shootingEffect;
     public TrailRenderer playerTrail;
@@ -23,7 +23,7 @@ public class PlayerControl : MonoBehaviour
     public WeaponControl weaponBeh;
     public PlayerAim playerAimingHandle;
     public PlayerInput playerInput;
-    public MenuManager menuManagerHandle;
+
    
     private void Awake()
     {
@@ -31,8 +31,6 @@ public class PlayerControl : MonoBehaviour
         {
             animator = GetComponent<Animator>();
         }
-
-
         if(SceneManager.GetActiveScene().name == "MainMenu")
         {
             gameObject.SetActive(false);
@@ -40,17 +38,12 @@ public class PlayerControl : MonoBehaviour
         if (moveBeh == null) moveBeh = GetComponent<PlayerMove>();
         if (shootingBeh == null) shootingBeh = GetComponent<PlayerShoot>();
         if (weaponBeh == null) weaponBeh = GetComponent<WeaponControl>();
-
-        if (FindObjectOfType<SoundManager>() != null)
-        {
-            soundmanagerLoaded = true;
-        }
-        else
-        {
-            soundmanagerLoaded = false;
-        }
         InitActions();
 
+        GameManager.Instance.eventsManager.PauseSet.AddListener( () => SetMenuActionMap() );
+        GameManager.Instance.eventsManager.GameResumed.AddListener(() => SetGameplayActionMap());
+        GameManager.Instance.eventsManager.PlayerDie.AddListener(() => SetMenuActionMap());
+        GameManager.Instance.eventsManager.PlayerRespawn.AddListener(() => SetGameplayActionMap());
     }
 
     private void InitActions()
@@ -67,16 +60,6 @@ public class PlayerControl : MonoBehaviour
         playerInput.actions["Fire"].canceled += ctx => OnShoot(ctx);
     }
 
-   
-    void Start()
-    {
-        if (soundmanagerLoaded)
-        {
-            SoundManager.playMusic(ref AudioSources.music);
-        }
-        FindObjectOfType<PlayerSpeaks>().SpecialPharase("There is Only One Mustache!!!", 5f);
-        TextControl.PrintText("Only One Mustache will Survive!", 5f);
-    }
 
     void Update()
     {
@@ -205,22 +188,22 @@ public class PlayerControl : MonoBehaviour
 
     public void OnPause(InputAction.CallbackContext value)
     {
-        menuManagerHandle.PauseGame();
+        GameManager.Instance.eventsManager.PauseSet.Invoke();
     }
 
 
 
     public void SetGameplayActionMap()
     {
-        playerInput.SwitchCurrentActionMap("Gameplay");
-        CursorScript.SetGameCursor();
+        playerInput.SwitchCurrentActionMap("InGame");
+        GameManager.Instance.cursorScript.SetGameCursor();
     }
 
     public  void SetMenuActionMap()
     {
-        playerInput.SwitchCurrentActionMap("UI");
-        CursorScript.SetMenuCursor();
-        
+        playerInput.SwitchCurrentActionMap("Menu");
+        GameManager.Instance.cursorScript.SetGameCursor();
+
     }
 
 

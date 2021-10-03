@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHealeable 
+public interface IBonus
 {
-    public void TakeHeal(float amount);
+    void GiveBonus(PlayerStats player);
 }

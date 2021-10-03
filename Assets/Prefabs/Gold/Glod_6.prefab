@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7529835022369114631}
   - component: {fileID: 7529835022369114625}
   - component: {fileID: 7529835022369114630}
-  - component: {fileID: 7529835022369114624}
+  - component: {fileID: 5878059720263919391}
+  - component: {fileID: -3556393357818443703}
   m_Layer: 12
   m_Name: Glod_6
   m_TagString: Gold
@@ -102,7 +103,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.15
---- !u!114 &7529835022369114624
+--- !u!114 &5878059720263919391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7529835022369114628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad34d3f063639740a4cfd559331b9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lower: 250
+  upper: 1250
+  offset: 0
+  bouncingSpeed: 0.5
+--- !u!114 &-3556393357818443703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,11 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a5d9c3a2098cb4c8da4bcf2d2d8bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lower: 250
-  upper: 1250
-  score: 0
-  offset: 0
-  bouncingSpeed: 0.5
 --- !u!1001 &4415679309529791471
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CameraFolllow : MonoBehaviour
 {
-    Camera cam;
-    [SerializeField]  Transform player;
-    Vector3 playerPos;
-    Vector3 camPos;
+    private Camera cam;
+    private Transform player;
+    private Vector3 playerPos;
+    private Vector3 camPos;
     private float xoffset = 3.5f;
     private float yoffset = 0.5f;
     private float Zpos = -7f;
@@ -17,45 +17,54 @@ public class CameraFolllow : MonoBehaviour
     private float shakecounter = 0f;
     public float shakeAmount = 0.1f;
     public float decreaseFactor = 1.0f;
-    // Start is called before the first frame update
+
     void Awake()
     {
         cam = Camera.main;
         cam.orthographicSize = defaultCameraSize;
+        player = GameManager.Instance.Player;
+        GameManager.Instance.eventsManager.StartLevel.AddListener(() => OnLevelStart());
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnLevelStart()
     {
-        if (player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").gameObject.transform;
-        }
-        playerPos = player.position;
-        camPos = playerPos;
-        camPos.z = Zpos;
-        camPos.x = camPos.x + xoffset;
-        camPos.y = camPos.y + yoffset;
-        if (shaking == false)
-        {
-            MoveTo(camPos);
-        }
-
-        if (shakecounter > 0)
-        {
-            Vector3 newpos = camPos + Random.insideUnitSphere * shakeAmount;
-            shakecounter -= Time.deltaTime * decreaseFactor;
-            MoveTo(newpos);
-        }
-        else
-        {
-            shaking = false;
-            shakecounter = 0f;
-        }
-
-
-
+        StartCoroutine(FollowPlayer());
     }
+    private IEnumerator FollowPlayer()
+    {
+        while (player.gameObject.activeInHierarchy == false)
+        {
+            yield return null;
+        }
+        while (true)
+        {
+            playerPos = player.position;
+            camPos = playerPos;
+            camPos.z = Zpos;
+            camPos.x += +xoffset;
+            camPos.y += +yoffset;
+            if (shaking == false)
+            {
+                MoveTo(camPos);
+            }
+
+            if (shakecounter > 0)
+            {
+                Vector3 newpos = camPos + Random.insideUnitSphere * shakeAmount;
+                shakecounter -= Time.deltaTime * decreaseFactor;
+                MoveTo(newpos);
+            }
+            else
+            {
+                shaking = false;
+                shakecounter = 0f;
+            }
+            yield return null;
+        }
+        
+       
+    }
+ 
 
     void MoveTo(Vector3 dest)
     {

@@ -2,23 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gold : MonoBehaviour
+public class Floating : MonoBehaviour
 {
+
     public int lower = 250;
     public int upper = 1250;
-    public int score;
     private float ceeling;
     private float floor;
-    public float offset=0;
-    private bool goUp=true;
+    public float offset = 0;
+    private bool goUp = true;
     public float bouncingSpeed = 0.5f;
-    private float phase= 0;
+    private float phase = 0;
     private Vector3 unitY = new Vector3(0, 1, 0);
-
-    // Start is called before the first frame update
     void Awake()
     {
-        if(GetComponent<CircleCollider2D>() != null)
+        if (GetComponent<CircleCollider2D>() != null)
         {
             offset = (float)GetComponent<CircleCollider2D>().radius;
         }
@@ -28,43 +26,26 @@ public class Gold : MonoBehaviour
         transform.position += unitY * phase;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (goUp)
         {
             transform.position += unitY * bouncingSpeed * Time.deltaTime;
 
-        } else if (!goUp)
+        }
+        else if (!goUp)
         {
             transform.position -= unitY * bouncingSpeed * Time.deltaTime;
         }
 
-        if(transform.position.y >= ceeling)
+        if (transform.position.y >= ceeling)
         {
             goUp = false;
-        } else if (transform.position.y <= floor)
+        }
+        else if (transform.position.y <= floor)
         {
             goUp = true;
         }
-            
+
     }
-    private float GoldAmount()
-    {
-        float amount = Random.Range(lower,upper);
-        return amount;
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        ITakeGold  temp= collision.collider.GetComponent<ITakeGold>();
-        if(temp != null)
-        {
-            temp.TakeGold(GoldAmount());
-            Destroy(gameObject);
-        }
-    }
-
-
-
-
 }

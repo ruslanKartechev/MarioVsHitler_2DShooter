@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5745014709653637363}
   - component: {fileID: 5745014709653637372}
   - component: {fileID: 5976193530996233441}
+  - component: {fileID: 2610748373890255887}
   m_Layer: 12
   m_Name: HealingPotion
   m_TagString: Untagged
@@ -114,6 +115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2637f29735f92984c99bfe35a0129165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2610748373890255887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745014709653637360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad34d3f063639740a4cfd559331b9c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lower: 250
+  upper: 1250
+  score: 0
   offset: 0
   bouncingSpeed: 0.5
 --- !u!1001 &4614851315300371427

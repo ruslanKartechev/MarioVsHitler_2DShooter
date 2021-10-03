@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerArmor : MonoBehaviour, IArmorable
+public class PlayerArmor : MonoBehaviour
 {
     public float maxArmor = 100f;
     private float currentArmor;
     public float _currentArmor
     {
         get { return currentArmor; }
+        set { currentArmor = value; }
     }
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class PlayerArmor : MonoBehaviour, IArmorable
             currentArmor = 0;
         }
     }
-    public void EquipArmor(float amount)
+    public void AddArmor(float amount)
     {
         currentArmor += amount;
     }

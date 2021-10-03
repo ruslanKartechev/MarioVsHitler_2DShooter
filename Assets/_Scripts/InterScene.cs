@@ -33,12 +33,7 @@ public class InterScene : MonoBehaviour
             inGameUi.SetActive(true);
             player.gameObject.SetActive(true);
         }
-       
-
-       
     }
-
-
     void Update()
     {
         if (SceneManager.GetActiveScene() != loadedScene)
@@ -47,11 +42,9 @@ public class InterScene : MonoBehaviour
             loadedScene = SceneManager.GetActiveScene();
         }
         if (SceneManager.GetActiveScene().name == "MainMenu") // if in main menu deactivate player
-        {
-            
+        {   
             player.gameObject.SetActive(false);
             inGameUi.SetActive(false);
-
         }
 
         if (SceneManager.GetActiveScene().name != "MainMenu" ) // if NOT in main menu
@@ -63,10 +56,7 @@ public class InterScene : MonoBehaviour
             {
                 SpawnPlayer();
             }
-
         } 
-        
-      
     }
 
     public void SpawnPlayer()

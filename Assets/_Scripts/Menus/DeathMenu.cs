@@ -3,55 +3,77 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-
-public class DeathMenu : MonoBehaviour
+using UnityEngine.UI;
+public class DeathMenu: MonoBehaviour
 {
-    public TextMeshProUGUI livesLeft;
-    public GameObject deathMenuCanvas;
+
     public LevelLoadManager levelmanagereHandle;
     public MenuManager menuManagerHandle;
     public PlayerSpawn playerSpawnHandle;
-    public EventsManager eventsHandle;
+    [SerializeField] private Menu deathMenu = new Menu();
+    private TextMeshProUGUI livesLeft;
+
     private void Awake()
     {
-        deathMenuCanvas.SetActive(false);
-
+        if (menuManagerHandle == null)
+            menuManagerHandle = GetComponent<MenuManager>();
+        SetMenuElements();
+        deathMenu.m_Canvas.gameObject.SetActive(false);
+       
     }
-    public void OnPlayerDie()
+    private void SetMenuElements()
     {
-        deathMenuCanvas.SetActive(true);
-        livesLeft.text = "Lives left: "  + playerSpawnHandle._respawns;
+        foreach(MenuElement el in deathMenu.m_elements)
+        {
+            switch (el.name)
+            {
+                case "Respawn":
+                    el.element.GetComponent<Button>().onClick.AddListener(Respawn);
+                    break;
+                case "Restart":
+                    el.element.GetComponent<Button>().onClick.AddListener(RestartLevel);
+                    break;
+                case "Exit":
+                    el.element.GetComponent<Button>().onClick.AddListener( QuitGame );
+                    break;
+                case "MainMenu":
+                    el.element.GetComponent<Button>().onClick.AddListener(MainMenu);
+                    break;
+                case "RespawnCountText":
+                     livesLeft = el.element.GetComponent<TextMeshProUGUI>();
+                    break;
+            }
+        }
     }
-
+    public void ShowDeathMenu()
+    {
+        deathMenu.ShowMenu(true);
+        if(livesLeft != null)
+            livesLeft.text = "Respawns left: "  + playerSpawnHandle.respawnsCount;
+    }
 
     public void Respawn()
     {
-        if(playerSpawnHandle._respawns > 0)
+        if(playerSpawnHandle.respawnsCount > 0)
         {
-            eventsHandle.PlayerRespawn.Invoke();
-            deathMenuCanvas.SetActive(false);
+            GameManager.Instance.eventsManager.PlayerRespawn.Invoke();
+            deathMenu.ShowMenu(false);  
         }
         else
-        {
             return;
-        }
-        
     }
-
     public void RestartLevel()
     {
-        deathMenuCanvas.SetActive(false);
+        deathMenu.m_Canvas.gameObject.SetActive(false);
         levelmanagereHandle.ReloadLevel();
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
     public void MainMenu()
     {
-        deathMenuCanvas.SetActive(false);
+        deathMenu.m_Canvas.gameObject.SetActive(false);
         levelmanagereHandle.LoadMainMenu();
-
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

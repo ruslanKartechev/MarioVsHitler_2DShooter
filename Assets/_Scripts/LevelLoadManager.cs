@@ -4,37 +4,34 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class LevelLoadManager : MonoBehaviour
 {
-    public EventsManager eventsHandle;
-
+    private EventsManager eventsHandle;
     void Awake()
     {
-        if (eventsHandle == null) eventsHandle = FindObjectOfType<EventsManager>();
-        
+        eventsHandle = GameManager.Instance.eventsManager;        
     }
 
     public void LoadMainMenu()
     {
+        Destroy(FindObjectOfType<DontDestroyOnLoad>().gameObject);
         SceneManager.LoadScene("MainMenu");
     }
     public void LoadLevel_1()
     {
-        eventsHandle.StartGame.Invoke();
-        LoadScene("Level_1");
-        CursorScript.SetGameCursor();
+       StartCoroutine( LoadScene("Level_1") );
     }
     public void LoadNextLevel()
     {
-        eventsHandle.StartGame.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Scene next =  SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1);
+        StartCoroutine( LoadScene(next.name) );
     }
     public void ReloadLevel()
     {
-        eventsHandle.StartGame.Invoke();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        eventsHandle.StartLevel.Invoke();
+        StartCoroutine( LoadScene(SceneManager.GetActiveScene().name) );
     }
-    private void LoadScene(string name)
+
+    private IEnumerator LoadScene(string name)
     {
-        eventsHandle.StartGame.Invoke();
         if (SceneManager.GetSceneByName(name).isLoaded)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(name));
@@ -43,6 +40,16 @@ public class LevelLoadManager : MonoBehaviour
         {
             SceneManager.LoadScene(name);
         }
+        yield return null;
+        while (SceneManager.GetActiveScene().name != name)
+        {
+            yield return null;
+        }
+        yield return null ;
+        eventsHandle.StartLevel.Invoke();
+        eventsHandle.PlayerSpawn.Invoke();
+
     }
+
 
 }

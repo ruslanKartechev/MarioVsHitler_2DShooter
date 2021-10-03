@@ -50,7 +50,7 @@ Material:
     m_Ints: []
     m_Floats:
     - Step: 0.21
-    - Voronoi_Pos: 31.146936
+    - Voronoi_Pos: 20.149115
     - Voronoi_Size: 5.55
     - _EnableExternalAlpha: 0
     m_Colors:

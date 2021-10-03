@@ -2,38 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    public  float MaxHealth = 100;
+    public  float MaxHealth;
     private float currentHealth;
     private PlayerArmor armorHandle;
     private bool isArmored = false;
     public GameObject damageEffect;
-    public EventsManager eventsHandle;
+    private PlayerStats mStats;
     public float _currentHealth
-
     {
         get { return currentHealth; }
+        set { currentHealth = value; }
     }
-    // Start is called before the first frame update
     void Awake()
     {
-        if (eventsHandle == null) eventsHandle = FindObjectOfType<EventsManager>();
-        eventsHandle.StartGame.AddListener(() => OnGameStart());
-        eventsHandle.PlayerRespawn.AddListener(() => OnPlayerRespawn());
+        mStats = GetComponent<PlayerStats>();
+        GameManager.Instance.eventsManager.StartLevel.AddListener(() => OnGameStart());
+        GameManager.Instance.eventsManager.PlayerRespawn.AddListener(() => OnPlayerRespawn());
         armorHandle = GetComponent<PlayerArmor>();
         if(armorHandle != null) { isArmored = true; }
         currentHealth = MaxHealth;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentHealth <= 0 )
-        {
-            Die();
-        }
-    }
     public void OnGameStart()
     {
         currentHealth = MaxHealth;
@@ -44,6 +35,9 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
     }
     public void TakeDamage(float damage)
     {
+        if (mStats.m_isInvincible == false)
+            return;
+
         if(isArmored == true){
             if(armorHandle._currentArmor > 0f)
             {
@@ -57,14 +51,17 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
             currentHealth -= damage;
         }
 
-        if(currentHealth<= 0f)
+        if(currentHealth <= 0f)
         {
             Die();
         }
     }
-    public void TakeHeal(float healAmount)
+    public void AddHealth(float healAmount)
     {
-        currentHealth += healAmount;
+        if (currentHealth + healAmount <= MaxHealth)
+            currentHealth += healAmount;
+        else
+            currentHealth = MaxHealth;
     }
 
 
@@ -73,7 +70,6 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
         effect.transform.position = gameObject.transform.position + new Vector3(0, 1.5f, 0);
         effect.transform.rotation = gameObject.transform.rotation;
         effect.GetComponent<ParticleSystem>().Play();
-
     }
 
 
@@ -81,7 +77,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable, IHealeable
     private void Die()
     {
         currentHealth = 0;
-        eventsHandle.PlayerDie.Invoke();
+        GameManager.Instance.eventsManager.PlayerDie.Invoke();
     }
 
 

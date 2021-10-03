@@ -2,38 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class CursorScript : MonoBehaviour
+public class CursorScript: MonoBehaviour
 {
 
-    public Texture2D ingame;
+    public Texture2D inGame;
     public Texture2D inMenu;
-    // Start is called before the first frame update
-    private static CursorScript S;
-    void Awake()
+
+    public  void SetMenuCursor()
     {
-        if (S == null)
-        {
-            S = this;
-        }
+        Cursor.SetCursor(inMenu,Vector2.zero, CursorMode.Auto);
+    }
+    public  void SetGameCursor()
+    {
+        Cursor.SetCursor(inGame, Vector2.zero, CursorMode.Auto);
     }
 
-    public static void SetMenuCursor()
-    {
-        Cursor.SetCursor(S.inMenu,Vector2.zero, CursorMode.Auto);
-    }
-    public static void SetGameCursor()
-    {
-        Cursor.SetCursor(S.ingame, Vector2.zero, CursorMode.Auto);
-    }
-
-    public static void HideCursor()
+    public  void HideCursor()
     {
 
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -6,17 +6,19 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerMove : MonoBehaviour
 {
-    Rigidbody2D rbPlayer;
+    private Rigidbody2D rbPlayer;
     private int jumpCount = 0;
     public int jumpLimit = 2;
     private float speed = 0f;
-    [Header("Set in Inspector")]
-    public float defaultSpeed = 5f;
-    public int maxSpeedUps = 1;
+    private float defaultSpeed = 5f;
+    private int maxSpeedUps = 1;
     public float runSpeedmodifier = 1.5f;
     private int jumpHeight = 10;
     private float moveInput;
 
+    public bool allowMoving { get; set; }
+    public bool allowJumping { get; set; }
+    
     public static bool FacingRight = true;
     public static PlayerMove S;
 
@@ -56,6 +58,9 @@ public class PlayerMove : MonoBehaviour
 
     public void moveLeftRight(float input)
     {
+        if (!allowMoving)
+            return;
+
         moveInput = input;
         if (input > 0 && !FacingRight)
         {
@@ -73,11 +78,14 @@ public class PlayerMove : MonoBehaviour
 
     public void MoveDown()
     {
-        rbPlayer.velocity  = new Vector2(rbPlayer.velocity.x, -jumpHeight);   
+        if(allowMoving)
+            rbPlayer.velocity  = new Vector2(rbPlayer.velocity.x, -jumpHeight);   
     }
     public void Jump()
     {
-        if (jumpCount < 2)
+        if (!allowMoving || !allowMoving)
+            return;
+        if (jumpCount < jumpLimit)
         {
             rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, jumpHeight);
             jumpCount += 1;

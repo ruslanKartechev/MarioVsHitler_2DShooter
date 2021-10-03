@@ -9,14 +9,11 @@ TagManager:
   - Bullet
   - Enemy
   - Furniture
-  - Gold
   - Rifle
   - Pistol_1
   - AutomaticRifle
   - MachineGun
-  - BulletPack
   - BulletPackPistol_1
-  - BulletPackRifle
   - BulletPackautomaticRifle
   - Pistol_2
   - EnemySoldier
@@ -35,6 +32,7 @@ TagManager:
   - EventSystem
   - EnemyHitler
   - PlayerFirePoint
+  - BulletPackRifle
   layers:
   - Default
   - TransparentFX

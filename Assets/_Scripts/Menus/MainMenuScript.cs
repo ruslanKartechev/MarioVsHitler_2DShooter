@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+
+
+
 public class MainMenuScript : MonoBehaviour
 {
 
@@ -16,7 +19,6 @@ public class MainMenuScript : MonoBehaviour
 
     public void Awake()
     {
-        CursorScript.SetMenuCursor();
         AudioSource aud = FindObjectOfType<AudioSource>();
         if(aud!= null)
            SoundManager.PlaySound("Menu", ref aud);
@@ -30,6 +32,10 @@ public class MainMenuScript : MonoBehaviour
             soundSlider = GameObject.Find("EffectsSlider").GetComponent<Slider>();
         }
         if (resolutionDropDown != null) SetResolutionDropDown();
+    }
+    private void Start()
+    {
+        GameManager.Instance.cursorScript.SetMenuCursor();
     }
 
     private void SetResolutionDropDown()
@@ -61,8 +67,6 @@ public class MainMenuScript : MonoBehaviour
     public void StartTheGame()
     {
         levelmanagerHandle.LoadLevel_1();
-
-
     }
     public void ExitGame()
     {
@@ -91,7 +95,6 @@ public class MainMenuScript : MonoBehaviour
             soundSlider.value = 1f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(musicSlider != null && soundSlider != null)
@@ -99,8 +102,6 @@ public class MainMenuScript : MonoBehaviour
             SoundManager.MusicVolume = musicSlider.value;
             SoundManager.EffectsVolume = soundSlider.value;
         }
-
-
     }
 
 

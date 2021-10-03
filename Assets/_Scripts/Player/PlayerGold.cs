@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGold : MonoBehaviour, ITakeGold
+public class PlayerGold : MonoBehaviour
 {
-    private float currentGoldCount = 0f;
+    private float currentGoldCount;
 
     public float _currentGoldCount
     {
         get { return currentGoldCount; }
+        set { currentGoldCount = value; }
     }
     private void Awake() {
+    
     }
-    public void TakeGold(float amount)
+    public void AddGold(float amount)
     {
         currentGoldCount += amount;
     }
